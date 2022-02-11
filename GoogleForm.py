@@ -15,5 +15,5 @@ class GoogleForm:
         self.s = Service(DRIVER_PATH)
         self.driver = webdriver.Chrome(service=self.s)
 
-    def fill_entry(self):
+    def form_entry(self):
         pass
