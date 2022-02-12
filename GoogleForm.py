@@ -12,6 +12,7 @@ class GoogleForm:
         self.s = Service(path)
         self.driver = webdriver.Chrome(service=self.s)
         self.url = url
+        self.driver.get(self.url)
 
     def form_entry(self):
         pass
