@@ -6,14 +6,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-DRIVER_PATH = "C:\Program Files\selenium_chromedriver_win32\chromedriver.exe"
-FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdImEVrF1ItqwTMHLVGYLb0dZB3iJEFXljySqA5YMTDcvcApQ/viewform?usp=sf_link'
-
 
 class GoogleForm:
-    def __init__(self):
-        self.s = Service(DRIVER_PATH)
+    def __init__(self, path, url):
+        self.s = Service(path)
         self.driver = webdriver.Chrome(service=self.s)
+        self.url = url
 
     def form_entry(self):
         pass
