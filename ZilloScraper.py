@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
+page_max = 13
+
 class ZilloScraper:
     def __init__(self, addon):
         self.apartment_entries = []
@@ -42,10 +44,13 @@ class ZilloScraper:
 
     def register_entry(self, element):
         # Remove information from BS element and enter it into the apartment entry list
+        url = element.find(name='a', class_='list-card-link').get('href')
+        if url[0] == '/':
+            url = "https://www.zillow.com" + url
         apartment_entry = {
             'address': element.find(name='address', class_='list-card-addr').get_text(),
             'rent': element.find(name='div', class_='list-card-price').get_text(),
-            'url': element.find(name='a', class_='list-card-link').get('href')
+            'url': url
         }
         self.apartment_entries.append(apartment_entry)
 
@@ -65,7 +70,7 @@ class ZilloScraper:
                 print(f"\t\tPage Number: {page} of {len(page_numbers)}")
                 break
         url_tail = page_numbers[page].find(name='a').get('href')
-        if page == len(page_numbers) or url_tail == '/homes/for_rent/1-_beds/10_p/':
+        if page == len(page_numbers) or url_tail == f'/homes/for_rent/1-_beds/{page_max}_p/':
             print(f"\tEnd of Pages")
             return False
         else:
